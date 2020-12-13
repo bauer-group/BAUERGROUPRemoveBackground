@@ -81,7 +81,7 @@ class BAUERGROUPRemoveBackgroundSubscriber implements SubscriberInterface
         }
 
         //Check for Regex Filter
-        if ( ($this->filterRegEx != '') && (preg_match($this->filterRegEx, $mediaPathInfo['basename']) === 1) )
+        if ( ($this->filterRegEx != '') && (!preg_match($this->filterRegEx, $mediaPathInfo['basename'])) )
         {          
             Shopware()->Pluginlogger()->info('BAUERGROUPRemoveBackground: Skipping this Image, because it is not matching the RegEx Filter ' . $this->filterRegEx);
             Shopware()->Pluginlogger()->info('BAUERGROUPRemoveBackground: MEDIA PROCESSING - END');

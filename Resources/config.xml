@@ -44,7 +44,7 @@
 			<name>FilterRegEx</name>
 			<label lang="de">Regular Expression Filter:</label>
 			<label lang="en">Regular Expression Filter:</label>
-			<value>(\d{8}_\d{6})</value>
+			<value>/(\d{8}_\d{6})/</value>
 			<description lang="de">Filterung der zu verarbeitenden Bilder mittels regulärer Ausdrücke. Ist dieses Feld leer, werden alle Bilder verarbeitet.</description>
 			<description lang="en">Filtering of the images to be processed using regular expressions. If this field is empty, all images will be processed.</description>
 		</element>		

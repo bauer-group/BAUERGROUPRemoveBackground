@@ -5,7 +5,7 @@
     <label lang="de">BAUER GROUP - Bilder automatisch freistellen</label>
     <label lang="en">BAUER GROUP - Automatically remove background from picture</label>
 
-    <version>0.0.2</version>
+    <version>0.0.3</version>
     <copyright>Copyright © 2020 BAUER GROUP - http://www.bauer-group.com/</copyright>
     <license>proprietary</license>
     <link>http://go.bauer-group.com/ecommerce</link>
@@ -22,5 +22,9 @@
     <changelog version="0.0.2">
         <changes lang="de">RegEx Filter</changes>
         <changes lang="en">RegEx Filter</changes>
-    </changelog>    
+    </changelog>
+    <changelog version="0.0.2">
+        <changes lang="de">RegEx Filter Update</changes>
+        <changes lang="en">RegEx Filter Update</changes>
+    </changelog>     
 </plugin>
