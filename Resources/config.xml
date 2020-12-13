@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/shopware/shopware/5.3/engine/Shopware/Components/Plugin/schema/config.xsd">
+	<elements>
+
+		<element type="boolean" required="true">
+			<name>Enabled</name>
+			<label lang="de">Verarbeitung bei Bildupload:</label>
+			<label lang="en">Processing during image upload:</label>
+			<value>false</value>
+			<description lang="de">Beim Upload der Bilder in die freigebenen Alben werden diese automatisch verarbeitet.</description>
+			<description lang="en">When the images are uploaded to the allowed albums, they are processed automatically.</description>
+		</element>				
+    
+		<element type="text" required="true">
+			<name>APIKey</name>
+			<label lang="de">API-Schlüssel:</label>
+			<label lang="en">API-Key:</label>
+			<value></value>
+			<description lang="de">Ihr API Schlüssel ein.</description>
+			<description lang="en">Your API key.</description>
+		</element>
+		
+		<element type="text" required="true">
+			<name>AlbumNames</name>
+			<label lang="de">Albumnamen:</label>
+			<label lang="en">Album Names:</label>
+			<value>Artikel</value>
+			<description lang="de">Albumnamen, für die eine Freistellung der Bilder erfolgen soll. Mehrere Alben werden durch Semicolon (;) getrennt.</description>
+			<description lang="en">Album names for images with background removal. Several albums are separated by a semicolon (;).</description>
+		</element>
+
+		<element type="boolean" required="true">
+			<name>PreviewImageQuality</name>
+			<label lang="de">Reduzierte Vorschaubildqualität:</label>
+			<label lang="en">Reduced preview image quality:</label>
+			<value>true</value>
+			<description lang="de">Anstelle der regulären Qualität, wird die reduzierte Vorschauqualität verwendet. Dies dient zu Testzwecken, ohne durch Uploads sein Creditkontingent aufzubrauchen.</description>
+			<description lang="en">Instead of the regular quality, the reduced preview quality is used. This is used for test purposes without using up your credit quota through uploads.</description>
+		</element>
+
+		<element type="text" required="true">
+			<name>FilterRegEx</name>
+			<label lang="de">Regular Expression Filter:</label>
+			<label lang="en">Regular Expression Filter:</label>
+			<value>(\d{8}_\d{6})</value>
+			<description lang="de">Filterung der zu verarbeitenden Bilder mittels regulärer Ausdrücke. Ist dieses Feld leer, werden alle Bilder verarbeitet.</description>
+			<description lang="en">Filtering of the images to be processed using regular expressions. If this field is empty, all images will be processed.</description>
+		</element>		
+    
+  </elements>
+</config>
