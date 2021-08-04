@@ -5,8 +5,8 @@
     <label lang="de">BAUER GROUP - Bilder automatisch freistellen</label>
     <label lang="en">BAUER GROUP - Automatically remove background from picture</label>
 
-    <version>0.0.3</version>
-    <copyright>Copyright © 2020 BAUER GROUP - http://www.bauer-group.com/</copyright>
+    <version>0.0.4</version>
+    <copyright>Copyright © 2020-2021 BAUER GROUP - http://www.bauer-group.com/</copyright>
     <license>proprietary</license>
     <link>http://go.bauer-group.com/ecommerce</link>
 	<support>http://go.bauer-group.com/support</support>
@@ -26,5 +26,9 @@
     <changelog version="0.0.3">
         <changes lang="de">RegEx Filter Update</changes>
         <changes lang="en">RegEx Filter Update</changes>
-    </changelog>     
+    </changelog>
+    <changelog version="0.0.4">
+        <changes lang="de">Kompatibilität für 5.7 (Shopware 5.7.0)</changes>
+        <changes lang="en">Compatibility for 5.7 (Shopware 5.7.0)</changes>
+    </changelog>	
 </plugin>

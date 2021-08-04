@@ -38,7 +38,7 @@ class BAUERGROUPRemoveBackgroundSubscriber implements SubscriberInterface
 
    public function onMediaPostPersist(\Enlight_Event_EventArgs $args)
    {     
-        Shopware()->Pluginlogger()->info('BAUERGROUPRemoveBackground: MEDIA PROCESSING - BEGIN');
+        Shopware()->Container()->get('pluginlogger')->info('BAUERGROUPRemoveBackground: MEDIA PROCESSING - BEGIN');
 
         $mediaObject = $args->get('entity');
 
@@ -46,45 +46,45 @@ class BAUERGROUPRemoveBackgroundSubscriber implements SubscriberInterface
         $mediaPathInfo = pathinfo($mediaPath);
         $mediaAlbum = $mediaObject->getAlbum();
 
-        Shopware()->Pluginlogger()->info('BAUERGROUPRemoveBackground: Processing File -> ' . $mediaPathInfo['basename'] . ' within Album ' . $mediaAlbum->getName());
+        Shopware()->Container()->get('pluginlogger')->info('BAUERGROUPRemoveBackground: Processing File -> ' . $mediaPathInfo['basename'] . ' within Album ' . $mediaAlbum->getName());
 
         //Processing Enabled
         if ($this->processingEnabled == false)
         {
-            Shopware()->Pluginlogger()->warning('BAUERGROUPRemoveBackground: Processing of Media during Upload is disabled. Skipping background removal of this Image.');
-            Shopware()->Pluginlogger()->info('BAUERGROUPRemoveBackground: MEDIA PROCESSING - END');
+            Shopware()->Container()->get('pluginlogger')->warning('BAUERGROUPRemoveBackground: Processing of Media during Upload is disabled. Skipping background removal of this Image.');
+            Shopware()->Container()->get('pluginlogger')->info('BAUERGROUPRemoveBackground: MEDIA PROCESSING - END');
             return;
         }
 
         //Validate API Key
         if (empty($this->apiKey))
         {
-            Shopware()->Pluginlogger()->error('BAUERGROUPRemoveBackground: API-Key is not set. Unable to Process Media.');
-            Shopware()->Pluginlogger()->info('BAUERGROUPRemoveBackground: MEDIA PROCESSING - END');
+            Shopware()->Container()->get('pluginlogger')->error('BAUERGROUPRemoveBackground: API-Key is not set. Unable to Process Media.');
+            Shopware()->Container()->get('pluginlogger')->info('BAUERGROUPRemoveBackground: MEDIA PROCESSING - END');
             return;
         }
 
         //Only Images Supported        
         if (!in_array(strtolower($mediaPathInfo['extension']), ['jpg', 'jpeg', 'png']))
         {
-            Shopware()->Pluginlogger()->info('BAUERGROUPRemoveBackground: Not Processing this Image. Unsupported File Type -> ' . $fileExtension);
-            Shopware()->Pluginlogger()->info('BAUERGROUPRemoveBackground: MEDIA PROCESSING - END');
+            Shopware()->Container()->get('pluginlogger')->info('BAUERGROUPRemoveBackground: Not Processing this Image. Unsupported File Type -> ' . $fileExtension);
+            Shopware()->Container()->get('pluginlogger')->info('BAUERGROUPRemoveBackground: MEDIA PROCESSING - END');
             return;
         }
 
         //Check for Albums
         if (!in_array($mediaAlbum->getName(), $this->albumNames))
         {          
-            Shopware()->Pluginlogger()->info('BAUERGROUPRemoveBackground: Skipping this Image, because it is in a excluded Album with Name ' . $mediaAlbum->getName());
-            Shopware()->Pluginlogger()->info('BAUERGROUPRemoveBackground: MEDIA PROCESSING - END');
+            Shopware()->Container()->get('pluginlogger')->info('BAUERGROUPRemoveBackground: Skipping this Image, because it is in a excluded Album with Name ' . $mediaAlbum->getName());
+            Shopware()->Container()->get('pluginlogger')->info('BAUERGROUPRemoveBackground: MEDIA PROCESSING - END');
             return;            
         }
 
         //Check for Regex Filter
         if ( ($this->filterRegEx != '') && (!preg_match($this->filterRegEx, $mediaPathInfo['basename'])) )
         {          
-            Shopware()->Pluginlogger()->info('BAUERGROUPRemoveBackground: Skipping this Image, because it is not matching the RegEx Filter ' . $this->filterRegEx);
-            Shopware()->Pluginlogger()->info('BAUERGROUPRemoveBackground: MEDIA PROCESSING - END');
+            Shopware()->Container()->get('pluginlogger')->info('BAUERGROUPRemoveBackground: Skipping this Image, because it is not matching the RegEx Filter ' . $this->filterRegEx);
+            Shopware()->Container()->get('pluginlogger')->info('BAUERGROUPRemoveBackground: MEDIA PROCESSING - END');
             return;            
         }
 
@@ -92,8 +92,8 @@ class BAUERGROUPRemoveBackgroundSubscriber implements SubscriberInterface
         $removeBGAccount = $this->GetAccountInformation();
         if (is_null($removeBGAccount))
         {          
-            Shopware()->Pluginlogger()->error('BAUERGROUPRemoveBackground: Skipping this Image, because Account Information cannot be retrieved.');
-            Shopware()->Pluginlogger()->info('BAUERGROUPRemoveBackground: MEDIA PROCESSING - END');
+            Shopware()->Container()->get('pluginlogger')->error('BAUERGROUPRemoveBackground: Skipping this Image, because Account Information cannot be retrieved.');
+            Shopware()->Container()->get('pluginlogger')->info('BAUERGROUPRemoveBackground: MEDIA PROCESSING - END');
             return;            
         }
         $credits = $removeBGAccount["data"]["attributes"] ["credits"]["total"];
@@ -102,19 +102,19 @@ class BAUERGROUPRemoveBackgroundSubscriber implements SubscriberInterface
         //Check Balance
         if ($this->previewQuality == true ? $previews <= 0 : $credits <= 0)
         {
-            Shopware()->Pluginlogger()->warning('BAUERGROUPRemoveBackground: Unable to Process Media. Leaving this Image as it is. No Credits remaining in your account. You need to buy Credits for further Image Processing.'
+            Shopware()->Container()->get('pluginlogger')->warning('BAUERGROUPRemoveBackground: Unable to Process Media. Leaving this Image as it is. No Credits remaining in your account. You need to buy Credits for further Image Processing.'
             . ' Account Information -> Credits Remaining:' . $credits . ' / Previews Remaining: ' . $previews);
-            Shopware()->Pluginlogger()->info('BAUERGROUPRemoveBackground: MEDIA PROCESSING - END');
+            Shopware()->Container()->get('pluginlogger')->info('BAUERGROUPRemoveBackground: MEDIA PROCESSING - END');
             return;
         }
 
-        Shopware()->Pluginlogger()->info('BAUERGROUPRemoveBackground: Removing Background for File ' . $mediaPath);
-        Shopware()->Pluginlogger()->info('BAUERGROUPRemoveBackground: remove.bg Account Information -> Credits Remaining:' . $credits . ' / Previews Remaining: ' . $previews);
+        Shopware()->Container()->get('pluginlogger')->info('BAUERGROUPRemoveBackground: Removing Background for File ' . $mediaPath);
+        Shopware()->Container()->get('pluginlogger')->info('BAUERGROUPRemoveBackground: remove.bg Account Information -> Credits Remaining:' . $credits . ' / Previews Remaining: ' . $previews);
 
         //Process Media
         $this->RemoveBackground($mediaPath);        
         
-        Shopware()->Pluginlogger()->info('BAUERGROUPRemoveBackground: MEDIA PROCESSING - END');
+        Shopware()->Container()->get('pluginlogger')->info('BAUERGROUPRemoveBackground: MEDIA PROCESSING - END');
    } //onMediaPostPersist
 
    private function GetAccountInformation()
@@ -133,7 +133,7 @@ class BAUERGROUPRemoveBackgroundSubscriber implements SubscriberInterface
         $requestInfo = curl_getinfo($client, CURLINFO_HTTP_CODE);        
         if ($requestInfo <> 200)
         {
-            Shopware()->Pluginlogger()->error('BAUERGROUPRemoveBackground: Error at using remove.bg Service. Cause -> Return Code:' . $requestInfo . ' / Return Body: ' . $jsonResult);                       
+            Shopware()->Container()->get('pluginlogger')->error('BAUERGROUPRemoveBackground: Error at using remove.bg Service. Cause -> Return Code:' . $requestInfo . ' / Return Body: ' . $jsonResult);                       
             return null;
         }
 
@@ -189,14 +189,14 @@ class BAUERGROUPRemoveBackgroundSubscriber implements SubscriberInterface
         $requestInfo = curl_getinfo($client, CURLINFO_HTTP_CODE);        
         if ($requestInfo <> 200)
         {
-            Shopware()->Pluginlogger()->error('BAUERGROUPRemoveBackground: Error at using remove.bg Service. Your Image is unmodified. Cause -> Return Code:' . $requestInfo . ' / Return Body: ' . $imageResult);                       
+            Shopware()->Container()->get('pluginlogger')->error('BAUERGROUPRemoveBackground: Error at using remove.bg Service. Your Image is unmodified. Cause -> Return Code:' . $requestInfo . ' / Return Body: ' . $imageResult);                       
             return;
         }
 
         //Save Modified Image
         $mediaService->write($mediaPath, $imageResult);
 
-        Shopware()->Pluginlogger()->info('BAUERGROUPRemoveBackground: remove.bg Processed Image ' . $mediaPath . ' with Settings'
+        Shopware()->Container()->get('pluginlogger')->info('BAUERGROUPRemoveBackground: remove.bg Processed Image ' . $mediaPath . ' with Settings'
         . ' Quality: ' . $mediaSize 
         . ' / Media Type: ' . $mediaType 
         . ' / Background Color: ' . $mediaBGColor);
